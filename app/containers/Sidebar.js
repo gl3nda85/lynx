@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { walletwrapper } from '../utils/walletwrapper';
-import { updater } from '../utils/updater';
+import {walletwrapper} from '../utils/walletwrapper';
+import {updater} from '../utils/updater';
 import { traduction } from '../lang/lang';
 const event = require('../utils/eventhandler');
 const { ipcRenderer } = require('electron');
@@ -250,7 +250,7 @@ export default class Sidebar extends Component {
                     ?
                 <Link to="/downloads" id="a-tag-button-wrapper">
                     <button className="stopStartButton">
-                        Click to install Wallet
+                        Click here to install Wallet
                     </button>
                 </Link>
                 :
