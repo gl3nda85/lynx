@@ -11,5 +11,4 @@
   "win32": "https://www.ecc.network/downloads/updates/eccoind-win64.exe",
   "win64": "https://www.ecc.network/downloads/updates/eccoind-win32.exe",
   "osx": "https://www.ecc.network/downloads/updates/eccoind-osx.dmg"
-
 }
