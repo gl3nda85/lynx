@@ -49,6 +49,8 @@ class Security extends Component {
     this.handleNewPassReenterChange = this.handleNewPassReenterChange.bind(this);
     this.dumpPrivateKey = this.dumpPrivateKey.bind(this);
     this.onChangeWalletAddress = this.onChangeWalletAddress.bind(this);
+    this.getErrorMessageFromStatus = this.getErrorMessageFromStatus.bind(this);
+    this.clearPassResetState = this.clearPassResetState.bind(this);
   }
 
   componentDidMount() {
@@ -170,16 +172,34 @@ class Security extends Component {
       this.state.walletAddress
     ];
     wallet.command([{ method, parameters }]).then((response) => {
-      if (response === 'RpcError'){
-        event.emit('show', 'wrong moite');
+
+      if(response[0] !== null) {
+        const rpcError = response[0];
+        const message = this.getErrorMessageFromStatus(rpcError.status);
+        event.emit('animate', message);
+      }else {
+        event.emit('animate', response[0].message);
+        clipboard.writeText(response);
       }
+
       console.log(response);
     }).catch((error) => {
-      alert(error);
+      console.log(error);
     });
+  }
 
-    event.emit('animate', lang.notificationAddressCopiedToClipboard);
-    clipboard.writeText(address);
+  getErrorMessageFromStatus(status) {
+    switch(status) {
+      case -5:
+        return 'Invalid Ecc wallet address';
+      case -13:
+        return 'Please unlock your wallet first';
+      case -14:
+        return 'Error: The wallet passphrase entered was incorrect.';
+
+      default:
+        return 'An Error Occurred';
+    }
   }
 
   onClickBackupLocation() {
@@ -250,31 +270,41 @@ class Security extends Component {
   changePassword() {
     this.setState({ changePassRequesting: true });
     wallet.walletChangePassphrase(this.state.currPass, this.state.newPass)
-      .then((result) => {
-        this.setState({
-          currPass: '',
-          newPass: '',
-          reenteredNewPass: '',
-          passValidated: false,
-          changePassRequesting: false,
-          passStrength: lang.backup1PasswordWeak,
-        });
-        event.emit('show', 'Passphrase changed successfully.');
-        setTimeout(() => {
-          event.emit('hide');
-        }, 2500);
+      .then((response) => {
+        if(response !== null) {
+          const message = this.getErrorMessageFromStatus(response.status);
+          event.emit('animate', message);
+          this.clearPassResetState();
+        } else {
+          this.setState({
+            currPass: '',
+            newPass: '',
+            reenteredNewPass: '',
+            passValidated: false,
+            changePassRequesting: false,
+            passStrength: lang.backup1PasswordWeak,
+          });
+          event.emit('show', 'Passphrase changed successfully.');
+          setTimeout(() => {
+            event.emit('hide');
+          }, 2500);
+        }
       })
       .catch(err => {
-        this.setState({
-          currPass: '',
-          newPass: '',
-          reenteredNewPass: '',
-          passValidated: false,
-          changePassRequesting: false
-        });
+        this.clearPassResetState();
         console.error(err);
         return event.emit('show', err);
       });
+  }
+
+  clearPassResetState() {
+    this.setState({
+      currPass: '',
+      newPass: '',
+      reenteredNewPass: '',
+      passValidated: false,
+      changePassRequesting: false
+    });
   }
 
   renderPageStep() {
@@ -376,11 +406,11 @@ class Security extends Component {
 
               </div>
               <div className="col-md-6">
-                <p className="desc -space-top">{lang.backupDumpPrivateKeyMessage}
-                  <span className="desc_green"> {lang.backupDumpPrivateKeyMessageImportant}</span>
+                <p className="desc -space-top">{lang.dumpPrivKeyMessage}
+                  <span className="desc_green"> {lang.dumpPrivKeyMessage2}</span>
                 </p>
-                <input className="input" placeholder={lang.enterYourWalletAddress} type="text" onChange={this.onChangeWalletAddress} value={this.state.walletAddress} />
-                <button className="nextButton" onClick={this.dumpPrivateKey}>{lang.backupDumpPrivateKey}</button>
+                <input className="input" placeholder={lang.dumpPrivKeyInput} type="text" onChange={this.onChangeWalletAddress} value={this.state.walletAddress} />
+                <button className="nextButton" onClick={this.dumpPrivateKey}>{lang.dumpPrivKeyButton}</button>
 
               </div>
             </div>
