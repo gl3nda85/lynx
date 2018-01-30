@@ -170,9 +170,11 @@
     "dumpPrivKeyButton": "Dump Private Key",
     "dumpPrivKeyInput": "Enter Wallet Address",
     "dumpPrivKeyClipboard": "Private Key copied to clipboard",
-    "dumpPrivKeyMessage": "Use the button below to set your desired save location for your backed up wallet.dat file.",
-    "dumpPrivKeyMessage2": "Remember to store this file somewhere safe as it cannot be retrieved if lost!",
-    "dumpPrivKeyMessage3": "Now that your password has been set and your wallet has been unlocked you can now stake your ecc. In the future you if you wish to unlock your wallet you can click the padlock icon in the overview !"
+    "dumpPrivKeyMessage": "Use the button below to copy your wallet private key to the clipboard",
+    "dumpPrivKeyMessage2": "Remember to write this private key down, if you lose this key you will not beable to recover your wallet",
+    "invalidEccAddress": "Invalid Ecc wallet address",
+    "unlockWalletFirst": "Please unlock your wallet first",
+    "privateKeyCopied": "Private Key Copied to clipboard"
 
 
 
