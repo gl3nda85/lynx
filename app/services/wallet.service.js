@@ -1,6 +1,4 @@
-import Wallet from '../utils/wallet';
-
-const wallet = new Wallet();
+import wallet from '../utils/wallet';
 
 export default {
   unlockWallet: (passPhrase, seconds, only_staking) => {

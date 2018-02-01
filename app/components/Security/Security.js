@@ -5,7 +5,7 @@ import glob from 'glob';
 import os from 'os';
 import $ from 'jquery';
 import fs from 'fs';
-import Wallet from '../../utils/wallet';
+import wallet from '../../utils/wallet';
 import { traduction } from '../../lang/lang';
 
 
@@ -19,7 +19,6 @@ const dialog = remote.require('electron').dialog;
 const app = remote.app;
 
 const lang = traduction();
-const wallet = new Wallet();
 
 class Security extends Component {
   constructor(props) {
