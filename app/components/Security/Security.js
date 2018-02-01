@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import glob from 'glob';
 import os from 'os';
 import $ from 'jquery';
+import fs from 'fs';
 import Wallet from '../../utils/wallet';
 import { traduction } from '../../lang/lang';
+
 
 const homedir = require('os').homedir();
 const event = require('../../utils/eventhandler');
