@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import fs from 'fs';
-import Wallet from '../../utils/wallet';
+import wallet from '../../utils/wallet';
 const homedir = require('os').homedir();
 
 const event = require('../../utils/eventhandler');
 
-const wallet = new Wallet();
 
 export default class Config extends Component {
   constructor(props) {
