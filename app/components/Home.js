@@ -154,12 +154,10 @@ class Home extends Component {
       const passPhrase = this.state.passPhrase;
       let timeL = this.state.timeL;
       const staking = this.state.stakeUnlock;
-      console.log(staking)
-      if (timeL === 0) {
+      if (timeL === 0 || timeL.length === 0) {
         timeL = 300000;
       }
       WalletService.unlockWallet(passPhrase, timeL, staking).then((data) => {
-        console.log(data);
         if (data === null) {
           event.emit('animate', `${lang.walletUnlockedFor} ${timeL} ${lang.seconds}`);
         }
