@@ -7,13 +7,10 @@ import $ from 'jquery';
 import fs from 'fs';
 import Wallet from '../../utils/wallet';
 import { traduction } from '../../lang/lang';
-
-
 const homedir = require('os').homedir();
 const event = require('../../utils/eventhandler');
 const remote = require('electron').remote;
 const { clipboard } = require('electron');
-
 
 const dialog = remote.require('electron').dialog;
 const app = remote.app;
@@ -433,7 +430,6 @@ class Security extends Component {
             value={this.state.walletAddress}
           />
           <button className="nextButton" onClick={this.dumpPrivateKey}>{lang.dumpPrivKeyButton}</button>
-
         </div>
       );
     }
