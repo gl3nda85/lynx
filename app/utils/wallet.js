@@ -68,6 +68,7 @@ class Wallet {
     });
   }
 
+
   getTransactions(account, count, skip) {
     return new Promise((resolve, reject) => {
       let a = account;
