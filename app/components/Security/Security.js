@@ -393,7 +393,6 @@ class Security extends Component {
             value={this.state.walletAddress}
           />
           <button className="nextButton" onClick={this.dumpPrivateKey}>{lang.dumpPrivKeyButton}</button>
-
         </div>
       );
     }
