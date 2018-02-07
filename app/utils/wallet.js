@@ -174,8 +174,17 @@ export default class Wallet {
   }
 
   walletstart(cb) {
-    if (process.platform === 'linux' || process.platform === 'darwin') {
+    if (process.platform === 'linux') {
       const path = `${homedir}/.eccoin-wallet/Eccoind`;
+      runExec(`chmod +x ${path} && ${path}`, 1000).then(() => {
+        return cb(true);
+      })
+        .catch(() => {
+          cb(false);
+        });
+
+    } else if (process.platform === 'darwin') {
+      const path = `${homedir}/.eccoin-wallet/Eccoind.app/Contents/MacOS/eccoind`;
       runExec(`chmod +x ${path} && ${path}`, 1000).then(() => {
         return cb(true);
       })
@@ -200,8 +209,9 @@ export default class Wallet {
           cb(false);
           ps.dispose();
         });
-    }
+    } 
   }
+
 }
 
 function runExec(cmd, timeout, cb) {
